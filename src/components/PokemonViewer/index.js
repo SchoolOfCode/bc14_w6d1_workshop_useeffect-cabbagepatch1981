@@ -8,18 +8,18 @@
 
 import { useState, useEffect } from "react";
 
-function PokemonViewer() {
+function PokemonViewer({ id }) {
   const [pokemon, setPokemon] = useState(null);
 
   useEffect(() => {
     async function fetchData() {
-      const response = await fetch("https://pokeapi.co/api/v2/pokemon/1");
+      const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
       const data = await response.json();
       console.log(data); // Log the data to make sure it's working correctly
       setPokemon(data);
     }
     fetchData();
-  }, []);
+  }, [id]);
 
   return (
     <div className="pokemon-viewer">
@@ -27,8 +27,6 @@ function PokemonViewer() {
         <div>
           <h2>{pokemon.name}</h2>
           <img src={pokemon.sprites.front_default} alt={pokemon.name} />
-          <p>Height: {pokemon.height}</p>
-          <p>Weight: {pokemon.weight}</p>
         </div>
       )}
     </div>
